@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import tkinter as tk
+from tkinter import ttk
  
 # Données des matériaux
 E_acier = 210e9  # Module de Young de l'acier (Pa)
@@ -8,8 +10,8 @@ E_poly = 10e6    # Module de Young du polymère (Pa)
 nu_poly = 0.45   # Coefficient de Poisson du polymère
  
 # Paramètres pour l'analyse
-rayon_bille = 0.01  # Rayon de la bille (10 mm)
-force = 50          # Force appliquée (50 N)
+rayon_b = [10e-3, 5e-3, 2e-3, 500e-6]  # Rayons de la bille en m
+force = [50, 100]  # Forces appliquées en N
  
 # Calcul du module d'Young équivalent pour acier-polymère
 def calcul_E_equivalent(E1, nu1, E2, nu2):
@@ -20,7 +22,7 @@ def pression_maximale(F, R, E_eq):
     a = ((3 * F * R) / (4 * E_eq))**(1/3)  # Rayon de contact
     p0 = (3 * F) / (2 * np.pi * a**2)       # Pression maximale
     return p0, a
- 
+
 # Fonctions pour calculer les contraintes
 def contraintes_interieures_r(r, a, nu, p0):
     term1 = (1 - 2 * nu) / 3
@@ -37,12 +39,15 @@ def contraintes_axiales(r, a, p0):
  
 def contraintes_exterieures_r(r, a, nu, p0):
     return p0 * (1 - 2 * nu) * (a**2) / (3 * r**2)
+
+def contraintes_exterieures_theta(r, a, nu, p0):
+    return p0 * (1 - 2 * nu) * (a**2) / (3 * r**2)
  
 # Calcul du module de Young équivalent
 E_eq_acier_poly = calcul_E_equivalent(E_acier, nu_acier, E_poly, nu_poly)
  
 # Calcul de la pression maximale
-p0, max_a = pression_maximale(force, rayon_bille, E_eq_acier_poly)
+p0, max_a = pression_maximale(force, rayon_b, E_eq_acier_poly)
  
 # Créer des valeurs de r de -1.5a à 1.5a
 r_values = np.linspace(-1.5*max_a, 1.5*max_a, 1000)  # Rayon d'affichage
