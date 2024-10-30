@@ -5,6 +5,8 @@ import tkinter as tk
 from tkinter import ttk
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn.linear_model import LinearRegression
 
 # Paramètres physiques
 F_values = [50, 100]  # Forces appliquées (en Newtons)
@@ -27,6 +29,10 @@ def p_a(F, R, E_star):
     p0 = (3 * F) / (2 * np.pi * a**2)       # Pression maximale
     return p0, a
 
+def r_equivalent(R1, R2):
+    return np.reciprocal((1/R1) + (1/R2))
+
+
 # Fonctions pour calculer les contraintes
 def contr_int_r(r, a, p0, nu):
     term1 = (1 - 2 * nu) / 3
@@ -47,6 +53,12 @@ def contr_ext_r(r, a, p0, nu):
 def contr_ext_theta(r, a, p0, nu):
     return - p0 * (1 - 2 * nu) * (a**2) / (3 * r**2)
  
+def contr_cis_rt(z, a, p0, nu):
+    return p0* (-(1+nu)*(1-(z/a)*np.arctan(a/z))+0.5*(1+(z/a)**2)**(-1))
+
+def contr_cis_z(z, a):
+    return (-(1+(z/a)**2)**(-1))
+    
 #################################################################################################################
 
 def plot_rayon_r_spsp(F, frame):
@@ -57,9 +69,9 @@ def plot_rayon_r_spsp(F, frame):
     # Initialiser le dictionnaire pour stocker les contraintes en fonction des rayons
     sigma_r_l = {}
 
-    # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
+    # R/2 car sphère-sphère on a 1/R* = 1/R1 + 1/R2, alors R* = R1/2 = R2/2
     for i, R in enumerate(radii):
-        p0, a = p_a(F, R, E_star)
+        p0, a = p_a(F, R/2, E_star)
         
         # Générer les valeurs de r pour ce rayon spécifique
         r_values = np.linspace(-1.5 * a, 1.5 * a, 1000)
@@ -81,7 +93,7 @@ def plot_rayon_r_spsp(F, frame):
         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
         color=colors[i]
         # Tracer les contraintes pour chaque rayon avec une étiquette unique
-        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
+        label = f'R = {R*1e3/2:.1f}* mm, R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
         ax.plot(r_values / a, sigma_r / p0, label=f'σ_r ({label})', color=color)
         ax.plot(-r_values / a, sigma_r / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
@@ -157,7 +169,7 @@ def plot_rayon_theta_spsp(F, frame):
 
     # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
     for i, R in enumerate(radii):
-        p0, a = p_a(F, R, E_star)
+        p0, a = p_a(F, R/2, E_star)
         
         # Générer les valeurs de r pour ce rayon spécifique
         r_values = np.linspace(-1.5 * a, 1.5 * a, 1000)
@@ -179,7 +191,7 @@ def plot_rayon_theta_spsp(F, frame):
         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
         color=colors[i]
         # Tracer les contraintes pour chaque rayon avec une étiquette unique
-        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
+        label = f'R = {R*1e3/2:.1f}* mm, R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
         ax.plot(r_values / a, sigma_theta / p0, label=f'σ_θ ({label})', color=color)
         ax.plot(-r_values / a, sigma_theta / p0,  label='_nolegend_', color=color)  # Courbe symétrique
 
@@ -256,7 +268,7 @@ def plot_rayon_z_spsp(F, frame):
 
     # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
     for i, R in enumerate(radii):
-        p0, a = p_a(F, R, E_star)
+        p0, a = p_a(F, R/2, E_star)
         
         # Générer les valeurs de r pour ce rayon spécifique
         r_values = np.linspace(-1.5 * a, 1.5 * a, 1000)
@@ -279,7 +291,7 @@ def plot_rayon_z_spsp(F, frame):
         # Tracé des contraintes et des contraintes symétrisées avec la même couleur
         color = colors[i]
         # Tracer les contraintes pour chaque rayon avec une étiquette unique
-        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
+        label = f'R = {R*1e3/2:.1f}* mm, R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
         ax.plot(r_values / a, sigma_z / p0, label=f'σ_z ({label})', color=color)
         ax.plot(-r_values / a, sigma_z / p0, label='_nolegend_', color=color)  # Courbe symétrique
       
@@ -363,7 +375,7 @@ def plot_force_r_spsp(R, frame):
 
     # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
     for i, F in enumerate(F_values):
-        p0, a = p_a(F, R, E_star)
+        p0, a = p_a(F, R/2, E_star)
         
         # Générer les valeurs de r pour ce rayon spécifique
         r_values = np.linspace(-1.5 * a, 1.5 * a, 1000)
@@ -385,7 +397,7 @@ def plot_force_r_spsp(R, frame):
         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
         color=colors[i]
         # Tracer les contraintes pour chaque rayon avec une étiquette unique
-        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
+        label = f'R = {R*1e3/2:.1f}* mm, R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
         ax.plot(r_values / a, sigma_r / p0, label=f'σ_r ({label})', color=color)
         ax.plot(-r_values / a, sigma_r / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
@@ -461,7 +473,7 @@ def plot_force_theta_spsp(R, frame):
 
     # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
     for i, F in enumerate(F_values):
-        p0, a = p_a(F, R, E_star)
+        p0, a = p_a(F, R/2, E_star)
         
         # Générer les valeurs de r pour ce rayon spécifique
         r_values = np.linspace(-1.5 * a, 1.5 * a, 1000)
@@ -483,7 +495,7 @@ def plot_force_theta_spsp(R, frame):
         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
         color=colors[i]
         # Tracer les contraintes pour chaque rayon avec une étiquette unique
-        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
+        label = f'R = {R*1e3/2:.1f}* mm, R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
         ax.plot(r_values / a, sigma_theta / p0, label=f'σ_θ ({label})', color=color)
         ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
@@ -559,7 +571,7 @@ def plot_force_z_spsp(R, frame):
 
     # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
     for i, F in enumerate(F_values):
-        p0, a = p_a(F, R, E_star)
+        p0, a = p_a(F, R/2, E_star)
         
         # Générer les valeurs de r pour ce rayon spécifique
         r_values = np.linspace(-1.5 * a, 1.5 * a, 1000)
@@ -581,7 +593,7 @@ def plot_force_z_spsp(R, frame):
         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
         color=colors[i]
         # Tracer les contraintes pour chaque rayon avec une étiquette unique
-        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
+        label = f'R = {R*1e3/2:.1f}* mm, R = {R*1e3:.1f} mm, F = {F} N, Sphère-Sphère'  # Label en mm pour R
         ax.plot(r_values / a, sigma_theta / p0, label=f'σ_z ({label})', color=color)
         ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
@@ -646,7 +658,11 @@ def plot_force_z_sppl(R, frame):
     canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.draw()
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-    
+
+######
+
+
+
 # Création de la fenêtre principale
 root = tk.Tk()
 root.title("Analyse des Contraintes")
@@ -713,6 +729,11 @@ plot_force_z_spsp(radii[0], tab11)
 tab12 = ttk.Frame(notebook)
 notebook.add(tab12, text='[12] σ_z, F, sp-pl')
 plot_force_z_sppl(radii[0], tab12)
+
+# Onglet 13
+tab13 = ttk.Frame(notebook)
+notebook.add(tab13, text='[12] σ_z, F, sp-pl')
+plot_contrainte_cisaillement(F_values[0], tab13)
 
 # Bouton Quitter
 quit_button = tk.Button(root, text='Quitter', command=root.quit)
