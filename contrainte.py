@@ -500,7 +500,7 @@ def plot_force_theta_spsp(R, frame):
         ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
     # Configuration des labels et du titre
-    ax.set_title('Contraintes radiales en fonction de la force pour une sphère-sphère et R = 10mm')
+    ax.set_title('Contraintes angulaires en fonction de; la force pour une sphère-sphère et R = 10mm')
     ax.set_xlabel('Rayon de la zone de contact (mm)')
     ax.set_ylabel('Contraintes (MPa)')
     ax.legend()
@@ -549,7 +549,7 @@ def plot_force_theta_sppl(R, frame):
         ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
     # Configuration des labels et du titre
-    ax.set_title('Contraintes radiales en fonction de la force pour une sphère-polymère et R = 10mm')
+    ax.set_title('Contraintes angulaires en fonction de la force pour une sphère-polymère et R = 10mm')
     ax.set_xlabel('Rayon de la zone de contact (mm)')
     ax.set_ylabel('Contraintes (MPa)')
     ax.legend()
@@ -598,7 +598,7 @@ def plot_force_z_spsp(R, frame):
         ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
     # Configuration des labels et du titre
-    ax.set_title('Contraintes radiales en fonction de la force pour une sphère-sphère et R = 10mm')
+    ax.set_title('Contraintes axiales en fonction de la force pour une sphère-sphère et R = 10mm')
     ax.set_xlabel('Rayon de la zone de contact (mm)')
     ax.set_ylabel('Contraintes (MPa)')
     ax.legend()
@@ -647,7 +647,7 @@ def plot_force_z_sppl(R, frame):
         ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
 
     # Configuration des labels et du titre
-    ax.set_title('Contraintes radiales en fonction de la force pour une sphère-sphère et R = 10mm')
+    ax.set_title('Contraintes axiales en fonction de la force pour une sphère-sphère et R = 10mm')
     ax.set_xlabel('Rayon de la zone de contact (mm)')
     ax.set_ylabel('Contraintes (MPa)')
     ax.legend()
@@ -730,10 +730,10 @@ tab12 = ttk.Frame(notebook)
 notebook.add(tab12, text='[12] σ_z, F, sp-pl')
 plot_force_z_sppl(radii[0], tab12)
 
-# Onglet 13
-tab13 = ttk.Frame(notebook)
-notebook.add(tab13, text='[12] σ_z, F, sp-pl')
-plot_contrainte_cisaillement(F_values[0], tab13)
+# # Onglet 13
+# tab13 = ttk.Frame(notebook)
+# notebook.add(tab13, text='[12] σ_z, F, sp-pl')
+# plot_contrainte_cisaillement(F_values[0], tab13)
 
 # Bouton Quitter
 quit_button = tk.Button(root, text='Quitter', command=root.quit)
