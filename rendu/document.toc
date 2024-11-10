@@ -2,4 +2,4 @@
 \contentsline {subsection}{\numberline {1.1}Un paramètre important : le rayon}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Un paramètre important : la force}{7}{subsection.1.2}%
 \contentsline {section}{\numberline {2}Biopsie}{10}{section.2}%
-\contentsline {section}{\numberline {3}Pression de contact}{10}{section.3}%
+\contentsline {section}{\numberline {3}Pression de contact}{11}{section.3}%

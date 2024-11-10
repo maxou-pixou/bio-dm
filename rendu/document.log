@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.22)  9 NOV 2024 00:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.6.22)  10 NOV 2024 22:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -493,15 +493,15 @@ s been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.146 \clearpage
                  <./ang1.png> <./ang2.png>]
-<rad3.png, id=114, 973.236pt x 502.87875pt>
+<rad3.png, id=115, 973.236pt x 502.87875pt>
 File: rad3.png Graphic file (type png)
 <use rad3.png>
-Package pdftex.def Info: rad3.png  used on input line 153.
-(pdftex.def)             Requested size: 350.99762pt x 181.35849pt.
-<rad4.png, id=115, 991.90575pt x 483.60675pt>
+Package pdftex.def Info: rad3.png  used on input line 155.
+(pdftex.def)             Requested size: 312.00119pt x 161.20839pt.
+<rad4.png, id=117, 991.90575pt x 483.60675pt>
 File: rad4.png Graphic file (type png)
 <use rad4.png>
-Package pdftex.def Info: rad4.png  used on input line 160.
+Package pdftex.def Info: rad4.png  used on input line 162.
 (pdftex.def)             Requested size: 350.99762pt x 171.13184pt.
 
 
@@ -512,23 +512,23 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.164 \clearpage
+l.166 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.164 \clearpage
+l.166 \clearpage
                  <./rad3.png> <./rad4.png>]
-<ax3.png, id=125, 970.827pt x 487.8225pt>
+<ax3.png, id=128, 970.827pt x 487.8225pt>
 File: ax3.png Graphic file (type png)
 <use ax3.png>
-Package pdftex.def Info: ax3.png  used on input line 167.
+Package pdftex.def Info: ax3.png  used on input line 170.
 (pdftex.def)             Requested size: 350.99762pt x 176.36775pt.
-<ax4.png, id=126, 967.2135pt x 490.83376pt>
+<ax4.png, id=130, 967.2135pt x 490.83376pt>
 File: ax4.png Graphic file (type png)
 <use ax4.png>
-Package pdftex.def Info: ax4.png  used on input line 174.
+Package pdftex.def Info: ax4.png  used on input line 177.
 (pdftex.def)             Requested size: 350.99762pt x 178.12302pt.
 
 
@@ -539,23 +539,23 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.178 \clearpage
+l.181 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.178 \clearpage
+l.181 \clearpage
                  <./ax3.png> <./ax4.png>]
-<ang3.png, id=135, 977.45175pt x 491.436pt>
+<ang3.png, id=140, 977.45175pt x 491.436pt>
 File: ang3.png Graphic file (type png)
 <use ang3.png>
-Package pdftex.def Info: ang3.png  used on input line 181.
+Package pdftex.def Info: ang3.png  used on input line 186.
 (pdftex.def)             Requested size: 350.99762pt x 176.4669pt.
-<ang4.png, id=136, 974.4405pt x 490.83376pt>
+<ang4.png, id=142, 974.4405pt x 490.83376pt>
 File: ang4.png Graphic file (type png)
 <use ang4.png>
-Package pdftex.def Info: ang4.png  used on input line 188.
+Package pdftex.def Info: ang4.png  used on input line 193.
 (pdftex.def)             Requested size: 350.99762pt x 176.79738pt.
 
 
@@ -566,18 +566,103 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.192 \clearpage
+l.197 \clearpage
                 
 pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.192 \clearpage
+l.197 \clearpage
                  <./ang3.png> <./ang4.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 221--223
+
+ []
+
+
 
 [10
 
-] (document.aux)
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.239 \clearpage
+                ]
+<biop.png, id=158, 617.9085pt x 552.26324pt>
+File: biop.png Graphic file (type png)
+<use biop.png>
+Package pdftex.def Info: biop.png  used on input line 247.
+(pdftex.def)             Requested size: 312.00119pt x 278.85281pt.
+
+
+[11
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.257 \clearpage
+                 <./biop.png>]
+<pre.png, id=170, 516.12825pt x 272.217pt>
+File: pre.png Graphic file (type png)
+<use pre.png>
+Package pdftex.def Info: pre.png  used on input line 270.
+(pdftex.def)             Requested size: 350.99762pt x 185.1217pt.
+
+
+[12
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.14}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.274 \clearpage
+                 <./pre.png>]
+<pre2.png, id=178, 528.17325pt x 275.8305pt>
+File: pre2.png Graphic file (type png)
+<use pre2.png>
+Package pdftex.def Info: pre2.png  used on input line 278.
+(pdftex.def)             Requested size: 350.99762pt x 183.30713pt.
+File: pre2.png Graphic file (type png)
+<use pre2.png>
+Package pdftex.def Info: pre2.png  used on input line 285.
+(pdftex.def)             Requested size: 350.99762pt x 183.30713pt.
+
+
+[13
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.289 \clearpage
+                
+pdfTeX warning (ext4): destination with the same identifier (name{figure.16}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.289 \clearpage
+                 <./pre2.png>]
+<pre3.png, id=189, 511.9125pt x 266.1945pt>
+File: pre3.png Graphic file (type png)
+<use pre3.png>
+Package pdftex.def Info: pre3.png  used on input line 293.
+(pdftex.def)             Requested size: 390.0pt x 202.80139pt.
+
+
+[14
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.17}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.297 \end{document}
+                     <./pre3.png>] (document.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 1
 L3 programming layer <2024-05-27>
@@ -586,13 +671,13 @@ Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: E6999551C49DE0C6DE8449960C80EBD2;859.
  ) 
 Here is how much of TeX's memory you used:
- 10560 strings out of 473882
- 164390 string characters out of 5725273
+ 10611 strings out of 473882
+ 165085 string characters out of 5725273
  1936908 words of memory out of 5000000
- 33255 multiletter control sequences out of 15000+600000
+ 33294 multiletter control sequences out of 15000+600000
  573795 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,7n,93p,580b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,10n,93p,690b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/belma/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmex10.pfb><C:/Users/belma/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmmi12.pfb><C:/Users/belma/AppData/Local/Programs/MiKTeX/fonts/type1/p
@@ -612,9 +697,9 @@ ublic/cm-super/sfrm0800.pfb><C:/Users/belma/AppData/Local/Programs/MiKTeX/fonts
 eX/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/belma/AppData/Local/Progr
 ams/MiKTeX/fonts/type1/public/cm-super/sfrm1440.pfb><C:/Users/belma/AppData/Loc
 al/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm2074.pfb>
-Output written on document.pdf (10 pages, 1234095 bytes).
+Output written on document.pdf (14 pages, 1552596 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 38 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 281 PDF objects out of 1000 (max. 8388607)
+ 50 named destinations out of 1000 (max. 500000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
