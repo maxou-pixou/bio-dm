@@ -660,7 +660,310 @@ def plot_force_z_sppl(R, frame):
     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
 ######
+def plot_contrainte_cisaillementR_sp(F, frame):
+    E_star = reduced_modulus(E_sphere, nu_sphere, E_polymer_high, nu_polymer)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    num_radii = len(radii)
+    colors = plt.cm.Accent(np.linspace(0, 1, num_radii))  # Utilisation de la colormap viridis
 
+    # Initialiser le dictionnaire pour stocker les contraintes en fonction des rayons
+    sigma_z_l = {}
+
+    # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
+    for i, R in enumerate(radii):
+        p0, a = p_a(F, R, E_star)
+        
+        # Générer les valeurs de r pour ce rayon spécifique
+        r_values = np.linspace(0, 1.5 * a, 1000)
+        
+        # Calcul des contraintes pour chaque r
+        sigma_z = np.zeros(len(r_values))
+        for j, r in enumerate(r_values):
+            if abs(r) <= a:
+                sigma_z[j] = 0.5*(contr_cis_z(abs(r), a)-contr_cis_rt(abs(r), a, p0,nu_sphere))
+            else : 
+                sigma_z[j] = None
+        
+        # Ajouter les contraintes calculées pour chaque R au dictionnaire
+        sigma_z_l[i] = (r_values, sigma_z)  # Associe les valeurs de r et les contraintes pour chaque rayon
+
+    # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+    for i, (r_values, sigma_z) in sigma_z_l.items():
+        R = radii[i]
+        a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+        # Tracé des contraintes et des contraintes symétrisées avec la même couleur
+        color = colors[i]
+        # Tracer les contraintes pour chaque rayon avec une étiquette unique
+        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+        ax.plot(r_values / a,sigma_z / p0, label=f'σ_z ({label})', color=color)
+        # ax.plot(-r_values / a, sigma_z / p0, label='_nolegend_', color=color)  # Courbe symétrique
+      
+
+    # Configuration des labels et du titre
+    ax.set_title('Contraintes axiales en fonction du rayon pour une sphère-sphère et F = 50N')
+    ax.set_xlabel('Rayon de la zone de contact (mm)')
+    ax.set_ylabel('Contraintes (MPa)')
+    ax.legend()
+    ax.grid(True)
+    ax.invert_yaxis()
+    # ax.set_xlim(-1.5, 1.5)
+    ax.xaxis.set_ticks_position('top')
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_label_position('top')
+    ax.yaxis.set_label_position('left')
+    # Afficher le graphique dans le frame Tkinter
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+def plot_contrainte_cisaillementR_pl(F, frame):
+    E_star = reduced_modulus(E_sphere, nu_sphere, E_polymer_high, nu_polymer)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    num_radii = len(radii)
+    colors = plt.cm.Accent(np.linspace(0, 1, num_radii))  # Utilisation de la colormap viridis
+
+    # Initialiser le dictionnaire pour stocker les contraintes en fonction des rayons
+    sigma_z_l = {}
+
+    # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
+    for i, R in enumerate(radii):
+        p0, a = p_a(F, R, E_star)
+        
+        # Générer les valeurs de r pour ce rayon spécifique
+        r_values = np.linspace(0, 1.5 * a, 1000)
+        
+        # Calcul des contraintes pour chaque r
+        sigma_z = np.zeros(len(r_values))
+        for j, r in enumerate(r_values):
+            if abs(r) <= a:
+                sigma_z[j] = 0.5*(contr_cis_z(abs(r), a)-contr_cis_rt(abs(r), a, p0,nu_polymer))
+            else : 
+                sigma_z[j] = None
+        
+        # Ajouter les contraintes calculées pour chaque R au dictionnaire
+        sigma_z_l[i] = (r_values, sigma_z)  # Associe les valeurs de r et les contraintes pour chaque rayon
+
+    # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+    for i, (r_values, sigma_z) in sigma_z_l.items():
+        R = radii[i]
+        a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+        # Tracé des contraintes et des contraintes symétrisées avec la même couleur
+        color = colors[i]
+        # Tracer les contraintes pour chaque rayon avec une étiquette unique
+        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+        ax.plot(r_values / a, sigma_z / p0, label=f'σ_z ({label})', color=color)
+        # ax.plot(-r_values / a, sigma_z / p0, label='_nolegend_', color=color)  # Courbe symétrique
+      
+
+    # Configuration des labels et du titre
+    ax.set_title('Contraintes axiales en fonction du rayon pour une sphère-polymère et F = 50N')
+    ax.set_xlabel('Rayon de la zone de contact (mm)')
+    ax.set_ylabel('Contraintes (MPa)')
+    ax.legend()
+    ax.grid(True)
+    ax.invert_yaxis()
+    # ax.set_xlim(-1.5, 1.5)
+    ax.xaxis.set_ticks_position('top')
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_label_position('top')
+    ax.yaxis.set_label_position('left')
+
+    # Afficher le graphique dans le frame Tkinter
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+def plot_contrainte_cisaillementF_sp(R, frame):
+    E_star = reduced_modulus(E_sphere, nu_sphere, E_polymer_high, nu_polymer)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    num_f = len(F_values)
+    colors = plt.cm.Accent(np.linspace(0, 1, num_f))  # Utilisation de la colormap viridis
+    # Initialiser le dictionnaire pour stocker les contraintes en fonction des rayons
+    sigma_theta_l = {}
+
+    # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
+    for i, F in enumerate(F_values):
+        p0, a = p_a(F, R, E_star)
+        
+        # Générer les valeurs de r pour ce rayon spécifique
+        r_values = np.linspace(0, 1.5 * a, 1000)
+        
+        # Calcul des contraintes pour chaque r
+        sigma_theta = np.zeros(len(r_values))
+        for j, r in enumerate(r_values):
+            if abs(r) <= a:
+                sigma_theta[j] = 0.5*(contr_cis_z(abs(r), a)-contr_cis_rt(abs(r), a, p0,nu_sphere))
+            else:
+                sigma_theta[j] = None
+        
+        # Ajouter les contraintes calculées pour chaque R au dictionnaire
+        sigma_theta_l[i] = (r_values, sigma_theta)  # Associe les valeurs de r et les contraintes pour chaque rayon
+
+    # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+    for i, (r_values, sigma_theta) in sigma_theta_l.items():
+        F = F_values[i]
+        a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+        color=colors[i]
+        # Tracer les contraintes pour chaque rayon avec une étiquette unique
+        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+        ax.plot( r_values / a,sigma_theta / p0, label=f'σ_z ({label})', color=color)
+        # ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
+
+    # Configuration des labels et du titre
+    ax.set_title('Contraintes axiales en fonction de la force pour une sphère-sphère et R = 10mm')
+    ax.set_xlabel('Rayon de la zone de contact (mm)')
+    ax.set_ylabel('Contraintes (MPa)')
+    ax.legend()
+    ax.grid(True)
+    ax.invert_yaxis()
+    ax.xaxis.set_ticks_position('top')
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_label_position('top')
+    ax.yaxis.set_label_position('left')
+
+    # Afficher le graphique dans le frame Tkinter
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+def plot_contrainte_cisaillementF_pl(R, frame):
+    E_star = reduced_modulus(E_sphere, nu_sphere, E_polymer_high, nu_polymer)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    num_f = len(F_values)
+    colors = plt.cm.Accent(np.linspace(0, 1, num_f))  # Utilisation de la colormap viridis
+    # Initialiser le dictionnaire pour stocker les contraintes en fonction des rayons
+    sigma_theta_l = {}
+
+    # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
+    for i, F in enumerate(F_values):
+        p0, a = p_a(F, R, E_star)
+        
+        # Générer les valeurs de r pour ce rayon spécifique
+        r_values = np.linspace(0, 1.5 * a, 1000)
+        
+        # Calcul des contraintes pour chaque r
+        sigma_theta = np.zeros(len(r_values))
+        for j, r in enumerate(r_values):
+            if abs(r) <= a:
+                sigma_theta[j] = 0.5*(contr_cis_z(abs(r), a)-contr_cis_rt(abs(r), a, p0,nu_polymer))
+            else:
+                sigma_theta[j] = None
+        
+        # Ajouter les contraintes calculées pour chaque R au dictionnaire
+        sigma_theta_l[i] = (r_values, sigma_theta)  # Associe les valeurs de r et les contraintes pour chaque rayon
+
+    # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+    for i, (r_values, sigma_theta) in sigma_theta_l.items():
+        F = F_values[i]
+        a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+        color=colors[i]
+        # Tracer les contraintes pour chaque rayon avec une étiquette unique
+        label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+        ax.plot( r_values / a,sigma_theta / p0, label=f'σ_z ({label})', color=color)
+        # ax.plot(-r_values / a, sigma_theta / p0, label='_nolegend_', color=color)  # Courbe symétrique
+
+    # Configuration des labels et du titre
+    ax.set_title('Contraintes axiales en fonction de la force pour une sphère-polymère et R = 10mm')
+    ax.set_xlabel('Rayon de la zone de contact (mm)')
+    ax.set_ylabel('Contraintes (MPa)')
+    ax.legend()
+    ax.grid(True)
+    ax.invert_yaxis()
+    ax.xaxis.set_ticks_position('top')
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_label_position('top')
+    ax.yaxis.set_label_position('left')
+
+    # Afficher le graphique dans le frame Tkinter
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
+
+#######
+
+# def plot_double_R_spsp(F, frame):
+#     E_star = reduced_modulus(E_sphere, nu_sphere, E_polymer_high, nu_polymer)
+#     fig, ax = plt.subplots(figsize=(8, 6))
+#     num_radii = len(radii)
+#     colors = plt.cm.Accent(np.linspace(0, 1, num_radii))  # Utilisation de la colormap viridis
+
+#     # Initialiser le dictionnaire pour stocker les contraintes en fonction des rayons
+#     sigma_z_l = {}
+#     sigma_z_l2 = {}
+#     sigma_z_l3 = {}
+
+#     # Parcours de chaque rayon dans la liste radii pour calculer les contraintes
+#     for i, R in enumerate(radii):
+#         p0, a = p_a(F, R, E_star)
+        
+#         # Générer les valeurs de r pour ce rayon spécifique
+#         r_values = np.linspace(0, 1.5 * a, 1000)
+        
+#         # Calcul des contraintes pour chaque r
+#         sigma_z = np.zeros(len(r_values))
+#         sigma_z2 = np.zeros(len(r_values))
+#         sigma_z3 = np.zeros(len(r_values))
+#         for j, r in enumerate(r_values):
+#             if abs(r) <= a:
+#                 sigma_z[j] = 0.5*(contr_cis_z(abs(r), a)-contr_cis_rt(abs(r), a, p0,nu_sphere))
+#                 sigma_z2[j]=contr_cis_rt(abs(r),a,p0,nu_sphere)
+#                 sigma_z3[j]=contr_cis_z(abs(r),a)
+#             else : 
+#                 sigma_z[j] = None
+        
+#         # Ajouter les contraintes calculées pour chaque R au dictionnaire
+#         sigma_z_l[i] = (r_values, sigma_z)  # Associe les valeurs de r et les contraintes pour chaque rayon
+#         sigma_z_l2[i] = (r_values, sigma_z2) 
+#         sigma_z_l3[i] = (r_values, sigma_z3) 
+#     # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+#     for i, (r_values, sigma_z) in sigma_z_l.items():
+#         R = radii[i]
+#         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+#         # Tracé des contraintes et des contraintes symétrisées avec la même couleur
+#         color = colors[i]
+#         # Tracer les contraintes pour chaque rayon avec une étiquette unique
+#         label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+#         ax.plot(r_values / a,sigma_z / p0, label=f'σ_z ({label})', color=color)
+#         # ax.plot(-r_values / a, sigma_z / p0, label='_nolegend_', color=color)  # Courbe symétrique
+
+#      # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+#     for i, (r_values, sigma_z2) in sigma_z_l2.items():
+#         R = radii[i]
+#         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+#         # Tracé des contraintes et des contraintes symétrisées avec la même couleur
+#         color = colors[i]
+#         # Tracer les contraintes pour chaque rayon avec une étiquette unique
+#         label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+#         ax.plot(r_values / a,sigma_z2 / p0, label=f'σ_z ({label})', color=color)
+#         # ax.plot(-r_values / a, sigma_z / p0, label='_nolegend_', color=color)  # Courbe symétrique
+
+#  # Boucle pour afficher chaque courbe stockée dans sigma_r_l
+#     for i, (r_values, sigma_z3) in sigma_z_l3.items():
+#         R = radii[i]
+#         a = np.max(np.abs(r_values)) / 1.5  # Calcule a à partir de r_values pour chaque rayon R
+#         # Tracé des contraintes et des contraintes symétrisées avec la même couleur
+#         color = colors[i]
+#         # Tracer les contraintes pour chaque rayon avec une étiquette unique
+#         label = f'R = {R*1e3:.1f} mm, F = {F} N, Sphère-Polymère'  # Label en mm pour R
+#         ax.plot(r_values / a,sigma_z3 / p0, label=f'σ_z ({label})', color=color)
+#         # ax.plot(-r_values / a, sigma_z / p0, label='_nolegend_', color=color)  # Courbe symétrique
+
+#     # Configuration des labels et du titre
+#     ax.set_title('Contraintes axiales en fonction du rayon pour une sphère-sphère et F = 50N')
+#     ax.set_xlabel('Rayon de la zone de contact (mm)')
+#     ax.set_ylabel('Contraintes (MPa)')
+#     ax.legend()
+#     ax.grid(True)
+#     ax.invert_yaxis()
+#     # ax.set_xlim(-1.5, 1.5)
+#     ax.xaxis.set_ticks_position('top')
+#     ax.yaxis.set_ticks_position('left')
+#     ax.xaxis.set_label_position('top')
+#     ax.yaxis.set_label_position('left')
+#     # Afficher le graphique dans le frame Tkinter
+#     canvas = FigureCanvasTkAgg(fig, master=frame)
+#     canvas.draw()
+#     canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
 
 
 # Création de la fenêtre principale
@@ -730,10 +1033,31 @@ tab12 = ttk.Frame(notebook)
 notebook.add(tab12, text='[12] σ_z, F, sp-pl')
 plot_force_z_sppl(radii[0], tab12)
 
-# # Onglet 13
-# tab13 = ttk.Frame(notebook)
-# notebook.add(tab13, text='[12] σ_z, F, sp-pl')
-# plot_contrainte_cisaillement(F_values[0], tab13)
+# Onglet 13
+tab13 = ttk.Frame(notebook)
+notebook.add(tab13, text='[13] tau, R, sp-sp')
+plot_contrainte_cisaillementR_sp(F_values[0], tab13)
+
+# Onglet 14
+tab14 = ttk.Frame(notebook)
+notebook.add(tab14, text='[14] tau, R, sp-pl')
+plot_contrainte_cisaillementR_pl(F_values[0], tab14)
+
+# Onglet 15
+tab15 = ttk.Frame(notebook)
+notebook.add(tab15, text='[15] tau, F, sp-sp')
+plot_contrainte_cisaillementF_sp(radii[0], tab15)
+
+# Onglet 16
+tab16 = ttk.Frame(notebook)
+notebook.add(tab16, text='[16] tau, F, sp-pl')
+plot_contrainte_cisaillementF_sp(radii[0], tab16)
+
+# # Onglet 17
+# tab17 = ttk.Frame(notebook)
+# notebook.add(tab17, text='[17] tau, F, sp-pl')
+# plot_double_R_spsp(radii[0], tab17)
+
 
 # Bouton Quitter
 quit_button = tk.Button(root, text='Quitter', command=root.quit)
