@@ -1,59 +1,72 @@
-import matplotlib.pyplot as plt
-import math
 import numpy as np
+import matplotlib.pyplot as plt
 
-# Deformations
-ex10 = 0.146
-ey10 = 0.042
-exy10 = 1.48
+# CODE 1 - Extension à 15%
+# Variables
+ex = 0.08  # Déformation dans la direction x
+ey = 0.024  # Déformation dans la direction y
+exy = 0.024  # Déformation de cisaillement
 
-ex15 = 0.08
-ey15 = 0.024
-exy15 = 0.024
+# 1. Calcul du coefficient de Poisson
+v = -(ey / ex)
+# Le coefficient de Poisson est négatif, donc le matériau étudié est auxétique.
 
-# Valeurs de phi1 de 0 à 180 degrés avec un pas de 10
-phi1_values = np.arange(0, 361, 10)
-en10_values = []
-en15_values = []
-gamma10_values = []
-gamma15_values = []
+# 2. Calcul des directions principales et déformations principales
+# Déformations principales
+eX = (ex + ey) / 2 + 0.5 * np.sqrt((ex - ey) ** 2 + 4 * exy ** 2)
+eY = (ex + ey) / 2 - 0.5 * np.sqrt((ex - ey) ** 2 + 4 * exy ** 2)
 
-# Calcul de en10, en15, gamma10 et gamma15 pour chaque valeur de phi1
-for phi1 in phi1_values:
-    # Calcul de en10
-    en10 = (ex10 + ey10) / 2 + ((ex10 - ey10) / 2) * math.cos(2 * math.radians(phi1)) + exy10 * math.sin(2 * math.radians(phi1))
-    en10_values.append(en10)
-    
-    # Calcul de en15
-    en15 = (ex15 + ey15) / 2 - ((ex15 - ey15) / 2) * math.cos(2 * math.radians(phi1)) - exy15 * math.sin(2 * math.radians(phi1))
-    en15_values.append(en15)
-    
-    # Calcul de gamma10
-    gamma10 = math.sin(2 * math.radians(phi1)) * (ex10 + ey10) + 2 * exy10 * math.cos(2 * math.radians(phi1))
-    gamma10_values.append(gamma10)
-    
-    # Calcul de gamma15
-    gamma15 = math.sin(2 * math.radians(phi1)) * (ex15 + ey15) + 2 * exy15 * math.cos(2 * math.radians(phi1))
-    gamma15_values.append(gamma15)
+# Directions principales
+PX = (180 / np.pi) * 0.5 * np.arctan(2 * exy / (ex - ey))
+PY = PX + 90
 
-# Création d'un graphique polaire
-theta = np.radians(phi1_values)  # Convertir en radians pour le graphique polaire
+# Calcul des vecteurs pour les déformations en fonction de phi
+Phi = np.linspace(0, 360, 180)  # Angles de 0° à 360°
+PhiRad = np.deg2rad(Phi)  # Conversion en radians
 
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+# Déformation normale et de cisaillement
+en = (ex + ey) / 2 + ((ex - ey) / 2) * np.cos(2 * PhiRad) + exy * np.sin(2 * PhiRad)
+yn = (ex - ey) / 2 * np.sin(2 * PhiRad) + exy * np.cos(2 * PhiRad)
 
-# Tracer en10
-ax.plot(theta, en10_values,label='εn10', color='blue', linestyle='-')
-# Tracer en15
-ax.plot(theta, en15_values, label='εn15', color='orange', linestyle='-')
-# Tracer gamma10
-ax.plot(theta, gamma10_values, label='γ10', color='green', linestyle='--')
-# Tracer gamma15
-ax.plot(theta, gamma15_values, label='γ15', color='red', linestyle='--')
+# Tracé des déformations
+plt.figure()
+plt.polar(PhiRad, en, 'b', linewidth=2, label='Déformation ε')  # Déformation normale en bleu
+plt.polar(PhiRad, yn, 'r--', linewidth=2, label='Déformation γ')  # Déformation de cisaillement en rouge pointillé
+plt.title('Extension à 15%')
+plt.legend()
+plt.show()
 
-# Ajouter des éléments au graphique
-ax.set_title("Variation de εn10, εn15, γ10 et γ15 en fonction de φ1", va='bottom')
-ax.set_xlabel("φ1 (degrés)")
-ax.set_ylabel("Valeurs")
-ax.legend()
+# CODE 2 - Extension à 10%
+# Variables
+ex = 0.146  # Déformation dans la direction x
+ey = 0.042  # Déformation dans la direction y
+exy = 1.48  # Déformation de cisaillement
 
+# 1. Calcul du coefficient de Poisson
+v = -(ey / ex)
+# Le coefficient de Poisson est négatif, donc le matériau étudié est auxétique.
+
+# 2. Calcul des directions principales et déformations principales
+# Déformations principales
+eX = (ex + ey) / 2 + 0.5 * np.sqrt((ex - ey) ** 2 + 4 * exy ** 2)
+eY = (ex + ey) / 2 - 0.5 * np.sqrt((ex - ey) ** 2 + 4 * exy ** 2)
+
+# Directions principales
+PX = (180 / np.pi) * 0.5 * np.arctan(2 * exy / (ex - ey))
+PY = PX + 90
+
+# Calcul des vecteurs pour les déformations en fonction de phi
+Phi = np.linspace(0, 360, 180)  # Angles de 0° à 360°
+PhiRad = np.deg2rad(Phi)  # Conversion en radians
+
+# Déformation normale et de cisaillement
+en = (ex + ey) / 2 + ((ex - ey) / 2) * np.cos(2 * PhiRad) + exy * np.sin(2 * PhiRad)
+yn = (ex - ey) / 2 * np.sin(2 * PhiRad) + exy * np.cos(2 * PhiRad)
+
+# Tracé des déformations
+plt.figure()
+plt.polar(PhiRad, en, 'b', linewidth=2, label='Déformation ε')  # Déformation normale en bleu
+plt.polar(PhiRad, yn, 'r--', linewidth=2, label='Déformation γ')  # Déformation de cisaillement en rouge pointillé
+plt.title('Extension à 10%')
+plt.legend()
 plt.show()
